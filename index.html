@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DescargarFacturas — Descarga y organiza tus DTE automáticamente</title>
+<meta name="description" content="DescargarFacturas: software para contadores que descarga tus facturas electrónicas (DTE) del correo, las organiza por año, mes y cliente, verifica su integridad y confronta con Hacienda. Optimizado para El Salvador.">
+<style>
+:root{
+  --bg:#f5f9ff; --surface:#ffffff; --border:#c9d9f0; --text:#1a2744; --muted:#5a6a8a;
+  --accent:#2f9bff; --accent2:#0a6edb; --good:#16a34a; --warn:#d97706; --shadow:0 6px 24px rgba(15,45,90,.10);
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+body{font-family:'Segoe UI',system-ui,sans-serif; background:var(--bg); color:var(--text); line-height:1.6;}
+.container{max-width:1000px; margin:0 auto; padding:0 20px;}
+
+/* ---- HEADER ---- */
+header{background:linear-gradient(135deg,#0a6edb,#2f9bff); color:#fff; padding:38px 0 44px; text-align:center;}
+.badge{display:inline-block; background:rgba(255,255,255,.15); padding:4px 14px; border-radius:999px; font-size:.85rem; margin-bottom:14px;}
+h1{font-size:clamp(1.6rem,4vw,2.5rem); font-weight:800; margin-bottom:10px;}
+.sub{max-width:640px; margin:0 auto; opacity:.95; font-size:1.06rem;}
+.acciones{margin-top:22px; display:flex; gap:14px; justify-content:center; flex-wrap:wrap;}
+
+/* ---- BOTONES ---- */
+.btn{display:inline-block; padding:14px 30px; border-radius:12px; font-weight:700; font-size:1.05rem; text-decoration:none; transition:transform .15s, box-shadow .15s; text-align:center;}
+.btn-wa{background:#25D366; color:#fff; box-shadow:0 4px 14px rgba(37,211,102,.3);}
+.btn-wa:hover{transform:translateY(-2px); box-shadow:0 8px 22px rgba(37,211,102,.4);}
+.btn-ghost{background:transparent; color:#fff; border:2px solid rgba(255,255,255,.6);}
+.btn-ghost:hover{border-color:#fff;}
+
+/* ---- SECCIONES ---- */
+section{padding:42px 0;}
+h2{font-size:1.7rem; color:var(--accent2); margin-bottom:8px; font-weight:800;}
+.lead{color:var(--muted); margin-bottom:20px; max-width:760px;}
+.card{background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:26px; box-shadow:var(--shadow);}
+
+/* ---- FEATURES ---- */
+.grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:16px;}
+.feature{padding:20px; border-radius:12px; background:#fff; border:1px solid var(--border);}
+.feature .icon{font-size:1.7rem;}
+.feature h3{font-size:1.12rem; margin:10px 0 6px; color:var(--accent2);}
+.feature p{color:var(--muted); font-size:.93rem;}
+
+/* ---- VERSIONES ---- */
+.version-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:18px; margin-top:8px;}
+.version{background:#fff; border:1px solid var(--border); border-radius:16px; padding:22px; box-shadow:var(--shadow); display:flex; flex-direction:column;}
+.version .tag{font-weight:800; font-size:1.2rem; color:var(--accent2); margin-bottom:10px;}
+.version ul{list-style:none; flex:1; margin-bottom:14px;}
+.version li{padding:4px 0 4px 24px; position:relative; color:var(--text); font-size:.95rem;}
+.version li::before{content:"✓"; position:absolute; left:0; color:var(--good); font-weight:700;}
+.version .ideal{font-size:.82rem; color:var(--muted); font-style:italic;}
+
+/* ---- BANNER CONTACTO ---- */
+.contacto{background:linear-gradient(135deg,#0a1628,#14304f); color:#fff; border-radius:16px; padding:34px; text-align:center;}
+.contacto h2{color:#fff; margin-bottom:8px;}
+.contacto p{color:#c9d9f0; margin-bottom:20px; max-width:640px; margin-left:auto; margin-right:auto;}
+.contacto .btn-wa{font-size:1.1rem; padding:16px 36px;}
+
+/* ---- CARACTERISTICAS DESTACADAS ---- */
+.highlights{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px; margin-top:16px;}
+.hl{background:#edf3ff; border-radius:12px; padding:16px; text-align:center; border-left:5px solid var(--accent2);}
+.hl .num{font-size:1.5rem; font-weight:800; color:var(--accent2);}
+
+/* ---- FOOTER ---- */
+footer{background:#0a1628; color:#aac4ee; padding:30px 0; text-align:center; font-size:.9rem;}
+footer a{color:#6db5ff; text-decoration:none;}
+
+@media(max-width:640px){ .btn{width:100%;} }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <div class="badge">Software para contadores · Optimizado para El Salvador · Funciona en otros países</div>
+    <h1>DescargarFacturas</h1>
+    <p class="sub">Baja tus facturas electrónicas (DTE) directamente del correo y te las deja <strong>organizadas por año, mes, flujo y tipo</strong>. Verifica su integridad y confrúntalas con Hacienda. <strong>Sin descargar una a una.</strong></p>
+    <div class="acciones">
+      <a class="btn btn-wa" href="https://wa.me/50366924056" target="_blank">💬 Pedir información por WhatsApp</a>
+      <a class="btn btn-ghost" href="#versiones">Ver las 3 versiones</a>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- Qué hace -->
+  <section>
+    <h2>¿Qué hace DescargarFacturas?</h2>
+    <p class="lead">Olvídate de entrar uno por uno a revisar y descargar tus documentos tributarios. DescargarFacturas lo hace por ti y lo deja todo listo.</p>
+    <div class="grid">
+      <div class="feature"><div class="icon">📥</div><h3>Descarga automática de DTE</h3><p>Baja tus facturas, crédito fiscal, retención y nota de remisión desde tu correo (Thunderbird) y de la plataforma de Hacienda.</p></div>
+      <div class="feature"><div class="icon">🗂️</div><h3>Organización inteligente</h3><p>Clasifica cada documento por año, mes, flujo (ingreso/egreso) y tipo. Todo en su lugar, sin esfuerzo.</p></div>
+      <div class="feature"><div class="icon">🔍</div><h3>Verificación de integridad</h3><p>Relee cada DTE y comprueba que los datos coincidan. Si algo anda mal, te lo marca para que lo revises.</p></div>
+      <div class="feature"><div class="icon">🏛️</div><h3>Confrontación con Hacienda</h3><p>Compara tus documentos con el Ministerio de Hacienda y detecta discrepancias antes de que sean un problema.</p></div>
+      <div class="feature"><div class="icon">🧾</div><h3>Exportar a CSV / DGII</h3><p>Genera los formatos que necesitas para tus declaraciones y reportes, listos para usar.</p></div>
+      <div class="feature"><div class="icon">🔔</div><h3>Recordatorios fiscales</h3><p>Te avisa de las fechas importantes para que nunca olvides una obligación.</p></div>
+    </div>
+  </section>
+
+  <!-- Beneficios en números -->
+  <section>
+    <h2>Lo que ahorras</h2>
+    <div class="highlights">
+      <div class="hl"><div class="num">Horas</div>menos al mes organizando facturas</div>
+      <div class="hl"><div class="num">Multas</div>evitadas al no olvidar plazos ni discrepancias</div>
+      <div class="hl"><div class="num">Errores</div>menos en tus declaraciones con datos verificados</div>
+      <div class="hl"><div class="num">1 solo</div>programa para todas tus cuentas y clientes</div>
+    </div>
+  </section>
+
+  <!-- Versiones -->
+  <section id="versiones">
+    <h2>Las 3 versiones</h2>
+    <p class="lead">Elige la que se ajusta a cómo llevas tu contabilidad. Todas con la misma potencia y facilidad de uso.</p>
+    <div class="version-grid">
+      <div class="version">
+        <div class="tag">🗄️ Sesiones</div>
+        <ul>
+          <li>Descarga por cuenta de correo</li>
+          <li>Ideal si llevas tus propias cuentas</li>
+          <li>Organización por año, mes y tipo</li>
+          <li>Verificación de integridad</li>
+        </ul>
+        <p class="ideal">Perfecta para contadores y dueños de negocio con una o pocas cuentas.</p>
+      </div>
+      <div class="version">
+        <div class="tag">📊 Clientes</div>
+        <ul>
+          <li>Un correo con facturas de varios clientes</li>
+          <li>Organiza todo por cliente automáticamente</li>
+          <li>Separación clara por receptor/emisor</li>
+          <li>Ideal para despachos con cartera</li>
+        </ul>
+        <p class="ideal">Perfecta para despachos contables y quienes llevan la contabilidad de varios negocios.</p>
+      </div>
+      <div class="version">
+        <div class="tag">🧩 Unificado</div>
+        <ul>
+          <li>Sus propias cuentas + varios clientes</li>
+          <li>Todo en una sola ventana</li>
+          <li>Potencia total sin cambiar de programa</li>
+          <li>Máxima flexibilidad de organización</li>
+        </ul>
+        <p class="ideal">Perfecta si quieres la solución completa en un solo lugar.</p>
+      </div>
+    </div>
+    <p class="lead" style="margin-top:18px; text-align:center;"><strong>Precio: $100</strong> con 1 año de actualizaciones incluidas. Sin cuotas mensuales.</p>
+  </section>
+
+  <!-- Contacto -->
+  <section>
+    <div class="contacto">
+      <h2>¿Necesitas más información?</h2>
+      <p>Escríbenos por WhatsApp y con gusto te asesoramos para elegir la versión que mejor se adapte a tu negocio o despacho. Respondemos rápido.</p>
+      <a class="btn btn-wa" href="https://wa.me/50366924056" target="_blank">💬 Escríbenos al 6692-4056</a>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="container">
+    <p>DescargarFacturas · Software para contadores en El Salvador y la región.</p>
+    <p style="margin-top:6px; opacity:.85">Consulta el precio y las opciones de licencia por WhatsApp.</p>
+  </div>
+</footer>
+
+</body>
+</html>
