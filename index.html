@@ -5,78 +5,124 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>DescargarFacturas — Descarga y organiza tus DTE automáticamente</title>
 <meta name="description" content="DescargarFacturas: software para contadores que descarga tus facturas electrónicas (DTE) del correo, las organiza por año, mes y cliente, verifica su integridad y confronta con Hacienda. Optimizado para El Salvador.">
+<!-- Sistema: Modern Tool / Builder SaaS en TEMA CLARO. Sin emojis en features,
+     un solo acento, tipografia Inter Tight, hairline. Preserva enlaces WhatsApp,
+     las 3 versiones, el precio y todo el contenido. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;450;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#f5f9ff; --surface:#ffffff; --border:#c9d9f0; --text:#1a2744; --muted:#5a6a8a;
-  --accent:#2f9bff; --accent2:#0a6edb; --good:#16a34a; --warn:#d97706; --shadow:0 6px 24px rgba(15,45,90,.10);
+  --bg:#f7f9fc; --surface:#ffffff; --surface2:#eef1f7; --hairline:#e3e8f0;
+  --text:#141a26; --text2:#4b5563; --text3:#8a94a6;
+  --accent:#2d6fdf; --accent-soft:#e9f0fd; --accent-dk:#1d4fa8;
+  --good:#15803d; --wa:#25D366; --wa-dk:#128C7E;
+  --warn-bg:#fff7e6; --warn-border:#f0c464;
+  --shadow:0 1px 2px rgba(16,24,40,.05),0 4px 16px rgba(16,24,40,.04);
+  --r-sm:6px; --r-md:10px; --r-lg:14px;
+  --ease:cubic-bezier(0.22,1,0.36,1);
 }
-*{box-sizing:border-box; margin:0; padding:0;}
-body{font-family:'Segoe UI',system-ui,sans-serif; background:var(--bg); color:var(--text); line-height:1.6;}
-.container{max-width:1000px; margin:0 auto; padding:0 20px;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;font-size:15px;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+.container{max-width:1000px;margin:0 auto;padding:0 20px}
 
 /* ---- HEADER ---- */
-header{background:linear-gradient(135deg,#0a6edb,#2f9bff); color:#fff; padding:38px 0 44px; text-align:center;}
-.badge{display:inline-block; background:rgba(255,255,255,.15); padding:4px 14px; border-radius:999px; font-size:.85rem; margin-bottom:14px;}
-h1{font-size:clamp(1.6rem,4vw,2.5rem); font-weight:800; margin-bottom:10px;}
-.sub{max-width:640px; margin:0 auto; opacity:.95; font-size:1.06rem;}
-.acciones{margin-top:22px; display:flex; gap:14px; justify-content:center; flex-wrap:wrap;}
+header{background:linear-gradient(180deg,#fff,var(--bg));padding:52px 0 40px;text-align:center;border-bottom:1px solid var(--hairline);position:relative;overflow:hidden}
+header::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(closest-side at 20% 0%,rgba(45,111,223,.05),transparent 70%),
+             radial-gradient(closest-side at 80% 10%,rgba(45,111,223,.04),transparent 65%)}
+.badge{display:inline-flex;align-items:center;gap:8px;background:var(--accent-soft);
+  border:1px solid #c7d8f6;color:var(--accent-dk);padding:6px 16px;border-radius:999px;
+  font-size:13px;font-weight:500;margin-bottom:18px;position:relative}
+.badge .dot{width:6px;height:6px;border-radius:50%;background:var(--accent)}
+h1{font-family:'Inter Tight',sans-serif;font-weight:700;letter-spacing:-.03em;
+  font-size:clamp(30px,5vw,44px);line-height:1.1;position:relative}
+.sub{max-width:640px;margin:14px auto 0;color:var(--text2);font-size:17px;position:relative}
+.sub strong{color:var(--text);font-weight:600}
+.acciones{margin-top:26px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap;position:relative}
 
 /* ---- BOTONES ---- */
-.btn{display:inline-block; padding:14px 30px; border-radius:12px; font-weight:700; font-size:1.05rem; text-decoration:none; transition:transform .15s, box-shadow .15s; text-align:center;}
-.btn-wa{background:#25D366; color:#fff; box-shadow:0 4px 14px rgba(37,211,102,.3);}
-.btn-wa:hover{transform:translateY(-2px); box-shadow:0 8px 22px rgba(37,211,102,.4);}
-.btn-ghost{background:transparent; color:#fff; border:2px solid rgba(255,255,255,.6);}
-.btn-ghost:hover{border-color:#fff;}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;border-radius:var(--r-md);
+  font-weight:600;font-size:15px;transition:filter .15s,transform .1s,box-shadow .15s}
+.btn:hover{filter:brightness(1.04);transform:translateY(-1px)}
+.btn-wa{background:var(--wa);color:#fff;box-shadow:0 4px 14px rgba(37,211,102,.25)}
+.btn-ghost{background:transparent;color:var(--accent-dk);border:1px solid var(--hairline)}
+.btn-ghost:hover{background:var(--surface2)}
+.btn svg{width:18px;height:18px}
 
 /* ---- SECCIONES ---- */
-section{padding:42px 0;}
-h2{font-size:1.7rem; color:var(--accent2); margin-bottom:8px; font-weight:800;}
-.lead{color:var(--muted); margin-bottom:20px; max-width:760px;}
-.card{background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:26px; box-shadow:var(--shadow);}
+section{padding:48px 0}
+h2{font-family:'Inter Tight',sans-serif;font-weight:700;letter-spacing:-.02em;font-size:25px;margin-bottom:10px}
+.lead{color:var(--text2);margin-bottom:22px;max-width:760px}
+.lead strong{color:var(--text)}
+.card{background:var(--surface);border:1px solid var(--hairline);border-radius:var(--r-md);padding:26px;transition:box-shadow .15s}
+.card:hover{box-shadow:var(--shadow)}
 
 /* ---- FEATURES ---- */
-.grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:16px;}
-.feature{padding:20px; border-radius:12px; background:#fff; border:1px solid var(--border);}
-.feature .icon{font-size:1.7rem;}
-.feature h3{font-size:1.12rem; margin:10px 0 6px; color:var(--accent2);}
-.feature p{color:var(--muted); font-size:.93rem;}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+.feature{background:var(--surface);border:1px solid var(--hairline);border-radius:var(--r-md);padding:20px;transition:border-color .15s,box-shadow .15s}
+.feature:hover{border-color:#c7d8f6;box-shadow:var(--shadow)}
+.feature .icon{width:38px;height:38px;border-radius:8px;background:var(--accent-soft);
+  display:flex;align-items:center;justify-content:center;color:var(--accent);margin-bottom:12px}
+.feature .icon svg{width:20px;height:20px}
+.feature h3{font-family:'Inter Tight',sans-serif;font-weight:600;font-size:15px;margin:0 0 5px;color:var(--text)}
+.feature p{color:var(--text2);font-size:13.5px}
+
+/* ---- HIGHLIGHTS ---- */
+.highlights{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:16px}
+.hl{background:var(--surface);border:1px solid var(--hairline);border-radius:var(--r-md);padding:18px;text-align:center}
+.hl .num{font-family:'Inter Tight',sans-serif;font-size:17px;font-weight:700;color:var(--accent-dk);display:block}
+.hl span{color:var(--text2);font-size:13.5px}
 
 /* ---- VERSIONES ---- */
-.version-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:18px; margin-top:8px;}
-.version{background:#fff; border:1px solid var(--border); border-radius:16px; padding:22px; box-shadow:var(--shadow); display:flex; flex-direction:column;}
-.version .tag{font-weight:800; font-size:1.2rem; color:var(--accent2); margin-bottom:10px;}
-.version ul{list-style:none; flex:1; margin-bottom:14px;}
-.version li{padding:4px 0 4px 24px; position:relative; color:var(--text); font-size:.95rem;}
-.version li::before{content:"✓"; position:absolute; left:0; color:var(--good); font-weight:700;}
-.version .ideal{font-size:.82rem; color:var(--muted); font-style:italic;}
+.version-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:8px}
+.version{background:var(--surface);border:1px solid var(--hairline);border-radius:var(--r-lg);padding:24px;
+  display:flex;flex-direction:column;transition:border-color .15s,box-shadow .15s,transform .15s}
+.version:hover{border-color:#c7d8f6;box-shadow:var(--shadow);transform:translateY(-2px)}
+.version .tag{font-family:'Inter Tight',sans-serif;font-weight:700;font-size:17px;color:var(--text);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.version .tag .t-ico{width:26px;height:26px;border-radius:6px;background:var(--accent-soft);
+  display:flex;align-items:center;justify-content:center;color:var(--accent)}
+.version .tag .t-ico svg{width:14px;height:14px}
+.version ul{list-style:none;flex:1;margin-bottom:14px}
+.version li{padding:4px 0 4px 24px;position:relative;color:var(--text2);font-size:13.5px}
+.version li::before{content:"";position:absolute;left:0;top:10px;width:10px;height:10px;
+  border-radius:50%;background:var(--accent-soft);border:2px solid var(--accent)}
+.version .ideal{font-size:12.5px;color:var(--text3);font-style:italic}
 
-/* ---- BANNER CONTACTO ---- */
-.contacto{background:linear-gradient(135deg,#0a1628,#14304f); color:#fff; border-radius:16px; padding:34px; text-align:center;}
-.contacto h2{color:#fff; margin-bottom:8px;}
-.contacto p{color:#c9d9f0; margin-bottom:20px; max-width:640px; margin-left:auto; margin-right:auto;}
-.contacto .btn-wa{font-size:1.1rem; padding:16px 36px;}
+/* ---- PRECIO ---- */
+.precio{display:flex;flex-direction:column;gap:10px;align-items:center;margin-top:20px;text-align:center}
+.precio .main{font-family:'Inter Tight',sans-serif;font-size:22px;font-weight:700;color:var(--text)}
+.precio .main span{color:var(--accent)}
+.descuento{display:inline-flex;align-items:center;gap:8px;background:var(--warn-bg);border:1px solid var(--warn-border);
+  padding:10px 18px;border-radius:var(--r-md);font-size:14px;color:var(--text)}
+.descuento b{color:#b45309}
 
-/* ---- CARACTERISTICAS DESTACADAS ---- */
-.highlights{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px; margin-top:16px;}
-.hl{background:#edf3ff; border-radius:12px; padding:16px; text-align:center; border-left:5px solid var(--accent2);}
-.hl .num{font-size:1.5rem; font-weight:800; color:var(--accent2);}
+/* ---- CONTACTO ---- */
+.contacto{background:linear-gradient(135deg,#0a1628,#14304f);color:#fff;border-radius:var(--r-lg);padding:36px;text-align:center}
+.contacto h2{color:#fff}
+.contacto p{color:#c9d9f0;margin:0 auto 20px;max-width:640px}
+.contacto .btn-wa{font-size:15px;padding:15px 34px}
 
 /* ---- FOOTER ---- */
-footer{background:#0a1628; color:#aac4ee; padding:30px 0; text-align:center; font-size:.9rem;}
-footer a{color:#6db5ff; text-decoration:none;}
+footer{background:#0f1520;color:#9fb0ca;padding:30px 0 26px;text-align:center;font-size:13px}
+footer p{margin-top:6px;opacity:.85}
 
-@media(max-width:640px){ .btn{width:100%;} }
+@media(max-width:640px){.btn{width:100%;justify-content:center}}
 </style>
 </head>
 <body>
 
 <header>
   <div class="container">
-    <div class="badge">Software para contadores · Optimizado para El Salvador · Funciona en otros países</div>
+    <div class="badge"><span class="dot"></span> Software para contadores · Optimizado para El Salvador · Funciona en otros países</div>
     <h1>DescargarFacturas</h1>
     <p class="sub">Baja tus facturas electrónicas (DTE) directamente del correo y te las deja <strong>organizadas por año, mes, flujo y tipo</strong>. Verifica su integridad y confrúntalas con Hacienda. <strong>Sin descargar una a una.</strong></p>
     <div class="acciones">
-      <a class="btn btn-wa" href="https://wa.me/50366924056" target="_blank">💬 Pedir información por WhatsApp</a>
+      <a class="btn btn-wa" href="https://wa.me/50366924056" target="_blank">
+        <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a8 8 0 00-6.9 12L2 18l4.1-1.1A8 8 0 1010 2zm0 1.5A6.5 6.5 0 015.9 16.7l-.5-.3-2.4.6.6-2.3-.3-.5A6.5 6.5 0 1110 3.5zM7.2 6.2c-.2 0-.4.3-.2.6.5 1.2 1.3 2.3 2.4 3.2.2.2.5.1.6-.1l.6-.7c.2-.2.4-.2.6 0l1.8 1.3c.2.2.2.4 0 .6l-.7.7c-.2.2-.4.4-.7.3-1.8-.3-3.3-1.4-4.4-3.4-.2-.3 0-.5.2-.7.3-.2.4-.3.2-.7z"/></svg>
+        Pedir información por WhatsApp
+      </a>
       <a class="btn btn-ghost" href="#versiones">Ver las 3 versiones</a>
     </div>
   </div>
@@ -89,12 +135,12 @@ footer a{color:#6db5ff; text-decoration:none;}
     <h2>¿Qué hace DescargarFacturas?</h2>
     <p class="lead">Olvídate de entrar uno por uno a revisar y descargar tus documentos tributarios. DescargarFacturas lo hace por ti y lo deja todo listo.</p>
     <div class="grid">
-      <div class="feature"><div class="icon">📥</div><h3>Descarga automática de DTE</h3><p>Baja tus facturas, crédito fiscal, retención y nota de remisión desde tu correo (Thunderbird) y de la plataforma de Hacienda.</p></div>
-      <div class="feature"><div class="icon">🗂️</div><h3>Organización inteligente</h3><p>Clasifica cada documento por año, mes, flujo (ingreso/egreso) y tipo. Todo en su lugar, sin esfuerzo.</p></div>
-      <div class="feature"><div class="icon">🔍</div><h3>Verificación de integridad</h3><p>Relee cada DTE y comprueba que los datos coincidan. Si algo anda mal, te lo marca para que lo revises.</p></div>
-      <div class="feature"><div class="icon">🏛️</div><h3>Confrontación con Hacienda</h3><p>Compara tus documentos con el Ministerio de Hacienda y detecta discrepancias antes de que sean un problema.</p></div>
-      <div class="feature"><div class="icon">🧾</div><h3>Exportar a CSV / DGII</h3><p>Genera los formatos que necesitas para tus declaraciones y reportes, listos para usar.</p></div>
-      <div class="feature"><div class="icon">🔔</div><h3>Recordatorios fiscales</h3><p>Te avisa de las fechas importantes para que nunca olvides una obligación.</p></div>
+      <div class="feature"><span class="icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 3v8m0 0l-3-3m3 3l3-3M4 15h12"/></svg></span><h3>Descarga automática de DTE</h3><p>Baja tus facturas, crédito fiscal, retención y nota de remisión desde tu correo (Thunderbird) y de la plataforma de Hacienda.</p></div>
+      <div class="feature"><span class="icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h12v12H4zM8 9l3 3 3-3M8 13h4"/></svg></span><h3>Organización inteligente</h3><p>Clasifica cada documento por año, mes, flujo (ingreso/egreso) y tipo. Todo en su lugar, sin esfuerzo.</p></div>
+      <div class="feature"><span class="icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 10a8 8 0 0114-5M18 10a8 8 0 01-14 5"/><path d="M14 2l4 0 0 4M6 18l-4 0 0-4"/></svg></span><h3>Verificación de integridad</h3><p>Relee cada DTE y comprueba que los datos coincidan. Si algo anda mal, te lo marca para que lo revises.</p></div>
+      <div class="feature"><span class="icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 3h12v4H4zM4 11h12v6H4zM3 7h4v4H3zM13 7h4v4h-4z"/></svg></span><h3>Confrontación con Hacienda</h3><p>Compara tus documentos con el Ministerio de Hacienda y detecta discrepancias antes de que sean un problema.</p></div>
+      <div class="feature"><span class="icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 15h8M7 18h6M8 11h4M5 6h10l-2 5H7L5 6z"/></svg></span><h3>Exportar a CSV / DGII</h3><p>Genera los formatos que necesitas para tus declaraciones y reportes, listos para usar.</p></div>
+      <div class="feature"><span class="icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="7"/><path d="M12 9v3l2 2M5 3l-2 2M7 1l1 2"/></svg></span><h3>Recordatorios fiscales</h3><p>Te avisa de las fechas importantes para que nunca olvides una obligación.</p></div>
     </div>
   </section>
 
@@ -102,10 +148,10 @@ footer a{color:#6db5ff; text-decoration:none;}
   <section>
     <h2>Lo que ahorras</h2>
     <div class="highlights">
-      <div class="hl"><div class="num">Horas</div>menos al mes organizando facturas</div>
-      <div class="hl"><div class="num">Multas</div>evitadas al no olvidar plazos ni discrepancias</div>
-      <div class="hl"><div class="num">Errores</div>menos en tus declaraciones con datos verificados</div>
-      <div class="hl"><div class="num">1 solo</div>programa para todas tus cuentas y clientes</div>
+      <div class="hl"><span class="num">Horas</span><span>menos al mes organizando facturas</span></div>
+      <div class="hl"><span class="num">Multas</span><span>evitadas al no olvidar plazos ni discrepancias</span></div>
+      <div class="hl"><span class="num">Errores</span><span>menos en tus declaraciones con datos verificados</span></div>
+      <div class="hl"><span class="num">1 solo</span><span>programa para todas tus cuentas y clientes</span></div>
     </div>
   </section>
 
@@ -115,42 +161,25 @@ footer a{color:#6db5ff; text-decoration:none;}
     <p class="lead">Elige la que se ajusta a cómo llevas tu contabilidad. Todas con la misma potencia y facilidad de uso.</p>
     <div class="version-grid">
       <div class="version">
-        <div class="tag">🗄️ Sesiones</div>
-        <ul>
-          <li>Descarga por cuenta de correo</li>
-          <li>Ideal si llevas tus propias cuentas</li>
-          <li>Organización por año, mes y tipo</li>
-          <li>Verificación de integridad</li>
-        </ul>
+        <div class="tag"><span class="t-ico"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="14" height="14" rx="2"/><path d="M3 8h14M3 12h14M8 15h4"/></svg></span> Sesiones</div>
+        <ul><li>Descarga por cuenta de correo</li><li>Ideal si llevas tus propias cuentas</li><li>Organización por año, mes y tipo</li><li>Verificación de integridad</li></ul>
         <p class="ideal">Perfecta para contadores y dueños de negocio con una o pocas cuentas.</p>
       </div>
       <div class="version">
-        <div class="tag">📊 Clientes</div>
-        <ul>
-          <li>Un correo con facturas de varios clientes</li>
-          <li>Organiza todo por cliente automáticamente</li>
-          <li>Separación clara por receptor/emisor</li>
-          <li>Ideal para despachos con cartera</li>
-        </ul>
+        <div class="tag"><span class="t-ico"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h12v12H4zM8 9l3 3 3-3"/></svg></span> Clientes</div>
+        <ul><li>Un correo con facturas de varios clientes</li><li>Organiza todo por cliente automáticamente</li><li>Separación clara por receptor/emisor</li><li>Ideal para despachos con cartera</li></ul>
         <p class="ideal">Perfecta para despachos contables y quienes llevan la contabilidad de varios negocios.</p>
       </div>
       <div class="version">
-        <div class="tag">🧩 Unificado</div>
-        <ul>
-          <li>Sus propias cuentas + varios clientes</li>
-          <li>Todo en una sola ventana</li>
-          <li>Potencia total sin cambiar de programa</li>
-          <li>Máxima flexibilidad de organización</li>
-        </ul>
+        <div class="tag"><span class="t-ico"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="6" cy="6" r="2.5"/><circle cx="14" cy="6" r="2.5"/><circle cx="6" cy="14" r="2.5"/><circle cx="14" cy="14" r="2.5"/></svg></span> Unificado</div>
+        <ul><li>Sus propias cuentas + varios clientes</li><li>Todo en una sola ventana</li><li>Potencia total sin cambiar de programa</li><li>Máxima flexibilidad de organización</li></ul>
         <p class="ideal">Perfecta si quieres la solución completa en un solo lugar.</p>
       </div>
     </div>
-    <p class="lead" style="margin-top:18px; text-align:center;">
-      <strong style="font-size:1.2rem">Precio: $150</strong> con 1 año de actualizaciones incluidas, sin cuotas mensuales.<br>
-      <span style="display:inline-block; margin-top:8px; background:#fff3dc; border:1px solid #f0c464; padding:10px 18px; border-radius:12px;">
-        🎉 <strong>Descuento de lanzamiento: $50</strong> — precio de lanzamiento en $100 por WhatsApp.
-      </span>
-    </p>
+    <div class="precio">
+      <div class="main"><strong>Precio: $150</strong> con 1 año de actualizaciones incluidas, sin cuotas mensuales.</div>
+      <span class="descuento">🎉 <strong>Descuento de lanzamiento: $50</strong> — precio de lanzamiento en $100 por WhatsApp.</span>
+    </div>
   </section>
 
   <!-- Contacto -->
@@ -158,7 +187,10 @@ footer a{color:#6db5ff; text-decoration:none;}
     <div class="contacto">
       <h2>¿Necesitas más información?</h2>
       <p>Escríbenos por WhatsApp y con gusto te asesoramos para elegir la versión que mejor se adapte a tu negocio o despacho. Respondemos rápido.</p>
-      <a class="btn btn-wa" href="https://wa.me/50366924056" target="_blank">💬 Escríbenos al 6692-4056</a>
+      <a class="btn btn-wa" href="https://wa.me/50366924056" target="_blank">
+        <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a8 8 0 00-6.9 12L2 18l4.1-1.1A8 8 0 1010 2zm0 1.5A6.5 6.5 0 015.9 16.7l-.5-.3-2.4.6.6-2.3-.3-.5A6.5 6.5 0 1110 3.5zM7.2 6.2c-.2 0-.4.3-.2.6.5 1.2 1.3 2.3 2.4 3.2.2.2.5.1.6-.1l.6-.7c.2-.2.4-.2.6 0l1.8 1.3c.2.2.2.4 0 .6l-.7.7c-.2.2-.4.4-.7.3-1.8-.3-3.3-1.4-4.4-3.4-.2-.3 0-.5.2-.7.3-.2.4-.3.2-.7z"/></svg>
+        Escríbenos al 6692-4056
+      </a>
     </div>
   </section>
 
@@ -167,7 +199,7 @@ footer a{color:#6db5ff; text-decoration:none;}
 <footer>
   <div class="container">
     <p>DescargarFacturas · Software para contadores en El Salvador y la región.</p>
-    <p style="margin-top:6px; opacity:.85">Consulta el precio y las opciones de licencia por WhatsApp.</p>
+    <p>Consulta el precio y las opciones de licencia por WhatsApp.</p>
   </div>
 </footer>
 
